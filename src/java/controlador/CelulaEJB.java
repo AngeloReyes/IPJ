@@ -31,11 +31,7 @@ public class CelulaEJB {
         return query.getResultList();
     }
 
-    public List<Celula> buscarPorCelulaId(Integer celulaid) {
-        Query query = em.createNamedQuery("Celula.findByIdCelula");
-        query.setParameter("IdCelula", celulaid);
-        return query.getResultList();
-    }
+  
 
     public Celula crearNuevaCelula(Celula celula) {
         em.persist(celula);

@@ -105,38 +105,50 @@
 
                             <p:dialog id="miembroDlg" header="MIEMBRO" widgetVar="miembroDialog" resizable="false" modal="true" closable="false">
                                 <p:panel>
-                                    <h:panelGrid columns="2" style="width: 450px ; height: 50px" >
+                                    <h:panelGrid columns="4" style="width: 450px ; height: 50px" >
 
-                                        <p:outputLabel for="nombre1" value="nombre1:" />
-                                        <p:inputText id="nombre1" title="nombre1" value="#{miembroMB.miembro.nombre1}" required="true" requiredMessage="El nombre es requerido"  size="60" />
-                                        <p:outputLabel for="nombre2" value="Nombre2:" />
-                                        <p:inputText id="nombre2" title="Nombre2" value="#{miembroMB.miembro.nombre2}"  size="60" />
-                                        <p:outputLabel for="apellido1" value="Apellido1:" />
-                                        <p:inputText id="apellido1" title="Apellido1" value="#{miembroMB.miembro.apellido1}" required="true" requiredMessage="El apellido es requerido"  size="60" />
-                                        <p:outputLabel for="apellido2" value="Apeliido2" />
-                                        <p:inputText id="apellido2" title="Apellido2" value="#{miembroMB.miembro.apellido2}"  size="60" />
-                                        <p:outputLabel for="direccion" value="DIreccion:" />
-                                        <p:inputText id="direccion" title="Direccion" value="#{miembroMB.miembro.direccion}" required="true" requiredMessage="La dirección es requerida" size="60" />
-                                        <p:outputLabel for="fechaNacimiento" value="FEHCA DE NACIMIENTO" />
+                                        <p:outputLabel for="nombre1" value="Primer Nombre:" />
+                                        <p:inputText id="nombre1" title="Primer Nombre" value="#{miembroMB.miembro.nombre1}" required="true" requiredMessage="El nombre es requerido"  size="20" />
+                                        <p:outputLabel for="nombre2" value="Segundo Nombre:" />
+                                        <p:inputText id="nombre2" title="Segundo Nombre" value="#{miembroMB.miembro.nombre2}"  size="20" />
+                                        <p:outputLabel for="apellido1" value="Primer Apellido:" />
+                                        <p:inputText id="apellido1" title="Primer Apellido" value="#{miembroMB.miembro.apellido1}" required="true" requiredMessage="El apellido es requerido"  size="20" />
+                                        <p:outputLabel for="apellido2" value="Segundo Apellido" />
+                                        <p:inputText id="apellido2" title="Apellido2" value="#{miembroMB.miembro.apellido2}"  size="20" />
+                                        <p:outputLabel for="direccion" value="Direccion:" />
+                                        <p:inputText id="direccion" title="Direccion" value="#{miembroMB.miembro.direccion}" required="true" requiredMessage="La dirección es requerida" size="20" />
+                                        <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:" />
                                         <p:calendar id="fechaNacimiento" required="true" requiredMessage="La fecha de Nacimiento es requerida" maxdate="#{miembroMB.fechaActual}" value="#{miembroMB.miembro.fechaNacimiento}" navigator="true" pattern="MM/dd/yyyy" >
                                          <p:ajax event="dateSelect" listener="#{miembroMB.onDateSelect}" update="fechaDecision" />
                                         </p:calendar>
                                         
 
-                                        <p:outputLabel for="fechaDecision" value="FECHA DE DESICION" />
+                                        <p:outputLabel for="fechaDecision" value="Fecha de Decision:" />
                                         <p:calendar id="fechaDecision" required="true" requiredMessage="La fecha de decision es requerida" mindate="#{miembroMB.fechaMin}" maxdate="#{miembroMB.fechaActual}" navigator="true"  value="#{miembroMB.miembro.fechaDecision}" pattern="MM/dd/yyyy"/>
                                         
                                      
 
-
-                                        <p:selectOneMenu  id="advanced2" required="true" requiredMessage="La celula es requerida" value="#{miembroMB.miembro.idCelula}"   panelStyle="width:180px"
+                                        <p:outputLabel for="idCelula"  value="Celula:" />
+                                        <p:selectOneMenu  id="idCelula" required="true" requiredMessage="La celula es requerida" value="#{miembroMB.miembro.idCelula}"   panelStyle="width:180px"
                                                           effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith"  >
 
-
+                                           
                                             <f:selectItems  value="#{celulaMB.listaCelulas}"  var="celula"  itemLabel="#{celula.nombre}"  itemValue="#{celula}" />
 
                                             <p:column>
                                                 <h:outputText value="#{t.nombre}" />
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                        
+                                         <p:outputLabel for="estadocivil"  value="Estado Civil:" />
+                                         <p:selectOneMenu  id="estadocivil" required="true" requiredMessage="requerida" value="#{miembroMB.miembro.idestadoCivil}"   panelStyle="width:180px"
+                                                          effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith"  >
+
+                                           
+                                             <f:selectItems  value="#{estadoCivilMB.listaCelulas}"  var="estado"  itemLabel="#{estado.descripcion}"  itemValue="#{estado}" />
+
+                                            <p:column>
+                                                <h:outputText value="#{t.descripcion}" />
                                             </p:column>
                                         </p:selectOneMenu>
 

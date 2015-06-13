@@ -31,16 +31,9 @@ public class CelulaMB implements Serializable {
     private Celula celula = new Celula();
     private Celula CelulaSelect;
     private List<Celula> listaCelulas = new ArrayList<Celula>();
-     private List<Celula> celulaporID = new ArrayList<Celula>();
+   
 
-    public List<Celula> getCelulaporID(int a) {
-        celulaporID=celulaEJB.buscarPorCelulaId(a);
-        return celulaporID;
-    }
-
-    public void setCelulaporID(List<Celula> celulaporID) {
-        this.celulaporID = celulaporID;
-    }
+  
 
     public CelulaMB(CelulaEJB celulaEJB, Celula CelulaSelect) {
         this.celulaEJB = celulaEJB;
