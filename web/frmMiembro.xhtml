@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Miembro</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./templates/template.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <div style=" margin: 10px; position: relative">
+                        <h:form>
+                            <p:outputLabel value="Nombre Completo:"/>
+                            <p:inputText value="#{miembroMB.nombreCompleto}"/>
+                            <p:commandButton value="buscar" actionListener="#{miembroMB.buscar()}" update=":form:MiembroTables"/>
+                        </h:form>
+                    </div>
+
+
+
+                    <div style=" margin: 10px; position: relative">
+                        <h:form id="form"  >
+                            <p:growl  id="MiembroGrowl" showDetail="false" autoUpdate="true" life="4000"/>
+                            <p:dataTable emptyMessage="No existe el Miembro" id="MiembroTables"  var="miembro"  value="#{miembroMB.listaMiembros}" rowKey="#{miembro.idMiembro}"
+                                         selection="#{miembroMB.miembroSelect}" selectionMode="single">
+
+                                <f:facet name="header">  
+                                </f:facet>  
+                                <p:ajax id="onRowSelected" event="rowSelect" listener="#{miembroMB.onRowSelect}"   
+                                        update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar "/>
+                                <p:ajax id="onRowUnSelected" event="rowUnselect"/>
+
+
+
+                                <p:column headerText="Nombres">
+                                    <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.nombre1}"/>
+
+                                </p:column>
+
+                                <p:column headerText="Apellidos" >
+                                    <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.apellido1 }"/>
+
+                                </p:column>
+
+                                <p:column headerText="Direccion">
+                                    <p:outputLabel   style="font-family: cursive ; font-size: medium" value="   #{miembro.direccion}"/>
+
+                                </p:column>
+                                <p:column headerText="Fecha de nacimiento">
+                                    <p:outputLabel   style="font-family: cursive ; font-size: medium" value="   #{miembro.fechaNacimiento}"/>
+
+
+
+
+
+
+
+
+                                </p:column>
+                                <p:column headerText="Fecha de desicion">
+                                    <p:inputText id="fd" value="#{miembro.fechaDecision}">
+
+                                        <f:convertDateTime  for="fd" pattern="yyyy-MMM-dd"/>
+
+
+                                    </p:inputText>
+
+
+                                </p:column>
+                                <p:column headerText="Estado civil">
+                                       <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idestadoCivil.descripcion}"/>
+
+                                </p:column>
+
+
+                                <p:column headerText="Celula">
+                                    <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idCelula.nombre}"/>
+
+                                </p:column>
+                                 <p:column headerText="Iglesia">
+                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idIglesia.nombre}"/>
+
+                                </p:column>
+                                
+                                 <p:column headerText="Tipo de miembro">
+                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idtipoMiembro.descripcion}"/>
+
+                                </p:column>
+                                   
+
+
+                            </p:dataTable>
+                            <p:panel id="miembroPanel">
+                                <p:commandButton id="cmbnuevo" value="Agregar" process="@this" icon="ui-icon-document" title="Agregar"  oncomplete="miembroDialog.show()" actionListener="#{miembroMB.nuevaMiembro()}" update=":form:miembroDlg"/>
+                                <p:commandButton id="cmbModificar" value="Modificar" process="@this"  update=":form:miembroDlg" icon="ui-icon-pencil" oncomplete="miembroDialog.show()" disabled="#{miembroMB.miembroSelect==null}"/>
+                                <p:commandButton id="cmbEliminar" value="Eliminar" process="@this"  icon="ui-icon-trash" oncomplete="confirmation.show()" disabled="#{miembroMB.miembroSelect==null}"/>
+                            </p:panel>
+
+                            <p:dialog id="miembroDlg" header="MIEMBRO" widgetVar="miembroDialog" resizable="false" modal="true" closable="false">
+                                <p:panel>
+                                    <h:panelGrid columns="2" style="width: 450px ; height: 50px" >
+
+                                        <p:outputLabel for="nombre1" value="nombre1:" />
+                                        <p:inputText id="nombre1" title="nombre1" value="#{miembroMB.miembro.nombre1}" required="true" requiredMessage="El nombre es requerido"  size="60" />
+                                        <p:outputLabel for="nombre2" value="Nombre2:" />
+                                        <p:inputText id="nombre2" title="Nombre2" value="#{miembroMB.miembro.nombre2}"  size="60" />
+                                        <p:outputLabel for="apellido1" value="Apellido1:" />
+                                        <p:inputText id="apellido1" title="Apellido1" value="#{miembroMB.miembro.apellido1}" required="true" requiredMessage="El apellido es requerido"  size="60" />
+                                        <p:outputLabel for="apellido2" value="Apeliido2" />
+                                        <p:inputText id="apellido2" title="Apellido2" value="#{miembroMB.miembro.apellido2}"  size="60" />
+                                        <p:outputLabel for="direccion" value="DIreccion:" />
+                                        <p:inputText id="direccion" title="Direccion" value="#{miembroMB.miembro.direccion}" required="true" requiredMessage="La dirección es requerida" size="60" />
+                                        <p:outputLabel for="fechaNacimiento" value="FEHCA DE NACIMIENTO" />
+                                        <p:calendar id="fechaNacimiento" required="true" requiredMessage="La fecha de Nacimiento es requerida" maxdate="#{miembroMB.fechaActual}" value="#{miembroMB.miembro.fechaNacimiento}" navigator="true" pattern="MM/dd/yyyy" >
+                                         <p:ajax event="dateSelect" listener="#{miembroMB.onDateSelect}" update="fechaDecision" />
+                                        </p:calendar>
+                                        
+
+                                        <p:outputLabel for="fechaDecision" value="FECHA DE DESICION" />
+                                        <p:calendar id="fechaDecision" required="true" requiredMessage="La fecha de decision es requerida" mindate="#{miembroMB.fechaMin}" maxdate="#{miembroMB.fechaActual}" navigator="true"  value="#{miembroMB.miembro.fechaDecision}" pattern="MM/dd/yyyy"/>
+                                        
+                                     
+
+
+                                        <p:selectOneMenu  id="advanced2" required="true" requiredMessage="La celula es requerida" value="#{miembroMB.miembro.idCelula}"   panelStyle="width:180px"
+                                                          effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith"  >
+
+
+                                            <f:selectItems  value="#{celulaMB.listaCelulas}"  var="celula"  itemLabel="#{celula.nombre}"  itemValue="#{celula}" />
+
+                                            <p:column>
+                                                <h:outputText value="#{t.nombre}" />
+                                            </p:column>
+                                        </p:selectOneMenu>
+
+
+
+
+                                    </h:panelGrid>
+                                </p:panel>
+                                <p:panel>
+                                    <p:commandButton value="Guardar"  icon="ui-icon-document" actionListener="#{miembroMB.guardarOactualizarMiembro()}" update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar"/>
+                                    <p:commandButton value="Salir" process="@this" icon="ui-icon ui-icon-pencil" actionListener="#{miembroMB.onClickSalir()}" oncomplete="miembroDialog.hide();" update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar "/>
+                                </p:panel>
+                            </p:dialog>
+                            <p:confirmDialog header="MIEMBO/ ELIMINAR" widgetVar="confirmation"
+                                             message="¿Desea eliminar este registro?" severity="alert" closable="false">  
+                                <p:panel>
+                                    <p:commandButton value="Yes" process="@this" oncomplete="confirmation.hide();"  actionListener="#{miembroMB.eliminarMiembro()}" update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar "/>  
+                                    <p:commandButton value="No" process="@this"  oncomplete="confirmation.hide();" actionListener="#{miembroMB.onClickSalir()}" update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar "/>   
+                                </p:panel>
+                            </p:confirmDialog>
+
+                        </h:form>
+                    </div>
+
+
+
+                </f:view>
+
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+
