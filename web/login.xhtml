@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+     >
+    <h:head>
+        <title>Sistema de control de Iglesias pentecostal de jesucristo</title>
+    </h:head>
+    <h:body>
+       
+        <h:form>
+            <p:panel id="basic" header="LOGIN"  style="width: 450px; left: 400px; right: 300px;position: relative">
+                 <p:growl  id="login" showDetail="false" autoUpdate="true" life="4000"/>
+            <p:panelGrid columns="2" style="position: relative; width: 430px">
+             <p:outputLabel for="us" value="Usuario:"/>
+             <p:inputText id="us" value="#{usersMB.users.usuario}" required="true" requiredMessage="ingrese un Usuario"/>
+             <p:outputLabel value="contraseña:"/>
+              <p:password value="#{usersMB.users.contraseña}" required="true" requiredMessage="ingrese la contraseña"/>
+              <p:commandButton value="iniciar sesion" action="#{usersMB.iniciosesion()}" />
+        </p:panelGrid>
+                </p:panel>
+        </h:form>
+
+      
+    </h:body>
+</html>
+

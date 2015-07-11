@@ -176,7 +176,7 @@ public class MiembroMB implements Serializable {
             } else if (miembro != null) {
                 miembro = miembroEJB.actualizarMiembro(miembro);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "El registro ha sido guardado exitosamente.", ""));
+                        "El registro ha sido actualizado exitosamente.", ""));
             }
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,

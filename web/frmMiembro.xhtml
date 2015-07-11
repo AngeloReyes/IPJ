@@ -7,12 +7,14 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Miembro</title>
+        
     </h:head>
     <h:body>
         <ui:composition template="./templates/template.xhtml">
 
             <ui:define name="content">
                 <f:view>
+                   
 
 
                     <div style=" margin: 10px; position: relative">
@@ -39,22 +41,35 @@
 
 
 
-                                <p:column headerText="Nombres">
+                                <p:column headerText="Primer Nombre">
                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.nombre1}"/>
 
                                 </p:column>
-
-                                <p:column headerText="Apellidos" >
-                                    <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.apellido1 }"/>
+                                 <p:column headerText="Segundo Nombre">
+                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.nombre2}"/>
 
                                 </p:column>
 
+                                <p:column headerText="Primer Apellido" >
+                                    <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.apellido1}"/>
+
+                                </p:column>
+                                
+                                
+                                <p:column headerText="Segundo Apellido" >
+                                    <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.apellido2}"/>
+
+                                </p:column>
                                 <p:column headerText="Direccion">
                                     <p:outputLabel   style="font-family: cursive ; font-size: medium" value="   #{miembro.direccion}"/>
 
                                 </p:column>
                                 <p:column headerText="Fecha de nacimiento">
-                                    <p:outputLabel   style="font-family: cursive ; font-size: medium" value="   #{miembro.fechaNacimiento}"/>
+                                    <h:outputLabel style="font-family: cursive ; font-size: medium" value="#{miembro.fechaNacimiento}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputLabel>
+                                  
+                                    
 
 
 
@@ -65,37 +80,15 @@
 
                                 </p:column>
                                 <p:column headerText="Fecha de desicion">
-                                    <p:inputText id="fd" value="#{miembro.fechaDecision}">
-
-                                        <f:convertDateTime  for="fd" pattern="yyyy-MMM-dd"/>
-
-
-                                    </p:inputText>
+                                    <h:outputLabel style="font-family: cursive ; font-size: medium" value="#{miembro.fechaDecision}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputLabel>
 
 
                                 </p:column>
-                                <p:column headerText="Estado civil">
-                                       <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idestadoCivil.descripcion}"/>
-
-                                </p:column>
-
-
                                 <p:column headerText="Celula">
                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idCelula.nombre}"/>
-
                                 </p:column>
-                                 <p:column headerText="Iglesia">
-                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idIglesia.nombre}"/>
-
-                                </p:column>
-                                
-                                 <p:column headerText="Tipo de miembro">
-                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idtipoMiembro.descripcion}"/>
-
-                                </p:column>
-                                   
-
-
                             </p:dataTable>
                             <p:panel id="miembroPanel">
                                 <p:commandButton id="cmbnuevo" value="Agregar" process="@this" icon="ui-icon-document" title="Agregar"  oncomplete="miembroDialog.show()" actionListener="#{miembroMB.nuevaMiembro()}" update=":form:miembroDlg"/>
@@ -118,13 +111,13 @@
                                         <p:outputLabel for="direccion" value="Direccion:" />
                                         <p:inputText id="direccion" title="Direccion" value="#{miembroMB.miembro.direccion}" required="true" requiredMessage="La dirección es requerida" size="20" />
                                         <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:" />
-                                        <p:calendar id="fechaNacimiento" required="true" requiredMessage="La fecha de Nacimiento es requerida" maxdate="#{miembroMB.fechaActual}" value="#{miembroMB.miembro.fechaNacimiento}" navigator="true" pattern="MM/dd/yyyy" >
+                                        <p:calendar id="fechaNacimiento" required="true" requiredMessage="La fecha de Nacimiento es requerida" maxdate="#{miembroMB.fechaActual}" value="#{miembroMB.miembro.fechaNacimiento}" navigator="true" pattern="dd/MM/yyyy" >
                                          <p:ajax event="dateSelect" listener="#{miembroMB.onDateSelect}" update="fechaDecision" />
                                         </p:calendar>
                                         
 
                                         <p:outputLabel for="fechaDecision" value="Fecha de Decision:" />
-                                        <p:calendar id="fechaDecision" required="true" requiredMessage="La fecha de decision es requerida" mindate="#{miembroMB.fechaMin}" maxdate="#{miembroMB.fechaActual}" navigator="true"  value="#{miembroMB.miembro.fechaDecision}" pattern="MM/dd/yyyy"/>
+                                        <p:calendar id="fechaDecision" required="true" requiredMessage="La fecha de decision es requerida" mindate="#{miembroMB.fechaMin}" maxdate="#{miembroMB.fechaActual}" navigator="true"  value="#{miembroMB.miembro.fechaDecision}" pattern="dd/MM/yyyy"/>
                                         
                                      
 

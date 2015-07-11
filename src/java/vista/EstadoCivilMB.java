@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.EstadoCivilEJB;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -19,7 +20,7 @@ import modelo.Estadocivil;
  */
 @ManagedBean(name="estadoCivilMB")
 @ViewScoped
-public class EstadoCivilMB {
+public class EstadoCivilMB implements Serializable{
 
     /**
      * Creates a new instance of EstadoCivilMB

@@ -7,10 +7,11 @@
     <class>modelo.Celula</class>
     <class>modelo.Estadocivil</class>
     <class>modelo.Etapas</class>
-    <class>modelo.Iglesia</class>
     <class>modelo.Miembro</class>
     <class>modelo.SubCategoria</class>
     <class>modelo.Tipomiembro</class>
+    <class>modelo.Users</class>
+    <class>modelo.Iglesia</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

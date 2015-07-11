@@ -55,6 +55,8 @@ public class Iglesia implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "direccion", nullable = false, length = 50)
     private String direccion;
+    @OneToMany(mappedBy = "idIglesia", fetch = FetchType.LAZY)
+    private List<Users> usersList;
     @JoinColumn(name = "id_miembro", referencedColumnName = "id_miembro")
     @ManyToOne(fetch = FetchType.LAZY)
     private Miembro idMiembro;
@@ -98,6 +100,15 @@ public class Iglesia implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    @XmlTransient
+    public List<Users> getUsersList() {
+        return usersList;
+    }
+
+    public void setUsersList(List<Users> usersList) {
+        this.usersList = usersList;
     }
 
     public Miembro getIdMiembro() {

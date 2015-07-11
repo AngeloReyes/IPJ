@@ -73,4 +73,9 @@
         <managed-bean-class>navegacion.NavMB</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>usersMB</managed-bean-name>
+        <managed-bean-class>vista.UsersMB</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>
