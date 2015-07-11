@@ -7,14 +7,14 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Miembro</title>
-        
+
     </h:head>
     <h:body>
         <ui:composition template="./templates/template.xhtml">
 
             <ui:define name="content">
                 <f:view>
-                   
+
 
 
                     <div style=" margin: 10px; position: relative">
@@ -36,7 +36,7 @@
                                 <f:facet name="header">  
                                 </f:facet>  
                                 <p:ajax id="onRowSelected" event="rowSelect" listener="#{miembroMB.onRowSelect}"   
-                                        update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar "/>
+                                        update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar :form:ver "/>
                                 <p:ajax id="onRowUnSelected" event="rowUnselect"/>
 
 
@@ -45,8 +45,8 @@
                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.nombre1}"/>
 
                                 </p:column>
-                                 <p:column headerText="Segundo Nombre">
-                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.nombre2}"/>
+                                <p:column headerText="Segundo Nombre">
+                                    <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.nombre2}"/>
 
                                 </p:column>
 
@@ -54,22 +54,19 @@
                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.apellido1}"/>
 
                                 </p:column>
-                                
-                                
+
+
                                 <p:column headerText="Segundo Apellido" >
                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.apellido2}"/>
 
                                 </p:column>
-                                <p:column headerText="Direccion">
-                                    <p:outputLabel   style="font-family: cursive ; font-size: medium" value="   #{miembro.direccion}"/>
 
-                                </p:column>
                                 <p:column headerText="Fecha de nacimiento">
                                     <h:outputLabel style="font-family: cursive ; font-size: medium" value="#{miembro.fechaNacimiento}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                                        </h:outputLabel>
-                                  
-                                    
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputLabel>
+
+
 
 
 
@@ -81,20 +78,77 @@
                                 </p:column>
                                 <p:column headerText="Fecha de desicion">
                                     <h:outputLabel style="font-family: cursive ; font-size: medium" value="#{miembro.fechaDecision}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                                        </h:outputLabel>
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputLabel>
 
 
                                 </p:column>
                                 <p:column headerText="Celula">
                                     <p:outputLabel style="font-family: cursive ; font-size: medium" value="  #{miembro.idCelula.nombre}"/>
                                 </p:column>
+
+
                             </p:dataTable>
                             <p:panel id="miembroPanel">
                                 <p:commandButton id="cmbnuevo" value="Agregar" process="@this" icon="ui-icon-document" title="Agregar"  oncomplete="miembroDialog.show()" actionListener="#{miembroMB.nuevaMiembro()}" update=":form:miembroDlg"/>
                                 <p:commandButton id="cmbModificar" value="Modificar" process="@this"  update=":form:miembroDlg" icon="ui-icon-pencil" oncomplete="miembroDialog.show()" disabled="#{miembroMB.miembroSelect==null}"/>
                                 <p:commandButton id="cmbEliminar" value="Eliminar" process="@this"  icon="ui-icon-trash" oncomplete="confirmation.show()" disabled="#{miembroMB.miembroSelect==null}"/>
+                                <p:commandButton id="ver" process="@this" update=":form:viewMiembro" icon="ui-icon-search" value="Visualizar"  oncomplete="MiembroView.show()" disabled="#{miembroMB.miembroSelect==null}" />
+
                             </p:panel>
+
+                            <p:dialog header="Miembro Info" widgetVar="MiembroView" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+                                <p:outputPanel id="viewMiembro" style="text-align:center;">
+                                    <p:panelGrid  columns="2">
+                                        <h:outputText value="Primer Nombre:" />
+                                        <h:outputText id="nombre1v" title="Primer Nombre" value="#{miembroMB.miembro.nombre1}" />
+                                        <h:outputText  value="Segundo Nombre:" />
+                                        <h:outputText id="nombre2v" title="Segundo Nombre" value="#{miembroMB.miembro.nombre2}" />
+                                        <h:outputText  value="Primer Apellido:" />
+                                        <h:outputText id="apellido1v" title="Primer Apellido" value="#{miembroMB.miembro.apellido1}"/>
+                                        <h:outputText  value="Segundo Apellido" />
+                                        <h:outputText id="apellido2v" title="Apellido2" value="#{miembroMB.miembro.apellido2}"/>
+                                        <h:outputText  value="Direccion:" />
+                                        <h:outputText id="direccionv" title="Direccion" value="#{miembroMB.miembro.direccion}"  />
+                                        <h:outputText  value="Fecha de Nacimiento:" />
+                                        <h:outputLabel  value="#{miembroMB.miembro.fechaNacimiento}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputLabel>
+
+
+
+
+                                        <h:outputText  value="Fecha de Decision:" />
+                                        <h:outputLabel  value="#{miembroMB.miembro.fechaDecision}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputLabel>
+
+
+
+
+                                        <h:outputText   value="Celula:" />
+                                        <h:outputText  id="idCelulav"  value="#{miembroMB.miembro.idCelula.nombre}"/>
+
+
+
+
+                                        <h:outputText   value="Estado Civil:" />
+                                        <h:outputText  id="estadocivilv" value="#{miembroMB.miembro.idestadoCivil.descripcion}"/>
+
+
+
+
+                                        
+
+
+                                    </p:panelGrid>
+                                    <p:commandButton value="Salir" process="@this" icon="ui-icon ui-icon-pencil" actionListener="#{miembroMB.onClickSalir()}" oncomplete="MiembroView.hide();" update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar :form:ver "/>
+                                </p:outputPanel>
+                            </p:dialog>
+
+
+
+
 
                             <p:dialog id="miembroDlg" header="MIEMBRO" widgetVar="miembroDialog" resizable="false" modal="true" closable="false">
                                 <p:panel>
@@ -109,36 +163,36 @@
                                         <p:outputLabel for="apellido2" value="Segundo Apellido" />
                                         <p:inputText id="apellido2" title="Apellido2" value="#{miembroMB.miembro.apellido2}"  size="20" />
                                         <p:outputLabel for="direccion" value="Direccion:" />
-                                        <p:inputText id="direccion" title="Direccion" value="#{miembroMB.miembro.direccion}" required="true" requiredMessage="La dirección es requerida" size="20" />
+                                        <p:inputTextarea rows="2" cols="20" maxlength="75" id="direccion" title="Direccion" value="#{miembroMB.miembro.direccion}" required="true" requiredMessage="La dirección es requerida" />
                                         <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:" />
                                         <p:calendar id="fechaNacimiento" required="true" requiredMessage="La fecha de Nacimiento es requerida" maxdate="#{miembroMB.fechaActual}" value="#{miembroMB.miembro.fechaNacimiento}" navigator="true" pattern="dd/MM/yyyy" >
-                                         <p:ajax event="dateSelect" listener="#{miembroMB.onDateSelect}" update="fechaDecision" />
+                                            <p:ajax event="dateSelect" listener="#{miembroMB.onDateSelect}" update="fechaDecision" />
                                         </p:calendar>
-                                        
+
 
                                         <p:outputLabel for="fechaDecision" value="Fecha de Decision:" />
                                         <p:calendar id="fechaDecision" required="true" requiredMessage="La fecha de decision es requerida" mindate="#{miembroMB.fechaMin}" maxdate="#{miembroMB.fechaActual}" navigator="true"  value="#{miembroMB.miembro.fechaDecision}" pattern="dd/MM/yyyy"/>
-                                        
-                                     
+
+
 
                                         <p:outputLabel for="idCelula"  value="Celula:" />
                                         <p:selectOneMenu  id="idCelula" required="true" requiredMessage="La celula es requerida" value="#{miembroMB.miembro.idCelula}"   panelStyle="width:180px"
                                                           effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith"  >
 
-                                           
+
                                             <f:selectItems  value="#{celulaMB.listaCelulas}"  var="celula"  itemLabel="#{celula.nombre}"  itemValue="#{celula}" />
 
                                             <p:column>
                                                 <h:outputText value="#{t.nombre}" />
                                             </p:column>
                                         </p:selectOneMenu>
-                                        
-                                         <p:outputLabel for="estadocivil"  value="Estado Civil:" />
-                                         <p:selectOneMenu  id="estadocivil" required="true" requiredMessage="requerida" value="#{miembroMB.miembro.idestadoCivil}"   panelStyle="width:180px"
+
+                                        <p:outputLabel for="estadocivil"  value="Estado Civil:" />
+                                        <p:selectOneMenu  id="estadocivil" required="true" requiredMessage="requerida" value="#{miembroMB.miembro.idestadoCivil}"   panelStyle="width:180px"
                                                           effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith"  >
 
-                                           
-                                             <f:selectItems  value="#{estadoCivilMB.listaCelulas}"  var="estado"  itemLabel="#{estado.descripcion}"  itemValue="#{estado}" />
+
+                                            <f:selectItems  value="#{estadoCivilMB.listaCelulas}"  var="estado"  itemLabel="#{estado.descripcion}"  itemValue="#{estado}" />
 
                                             <p:column>
                                                 <h:outputText value="#{t.descripcion}" />
@@ -152,7 +206,7 @@
                                 </p:panel>
                                 <p:panel>
                                     <p:commandButton value="Guardar"  icon="ui-icon-document" actionListener="#{miembroMB.guardarOactualizarMiembro()}" update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar"/>
-                                    <p:commandButton value="Salir" process="@this" icon="ui-icon ui-icon-pencil" actionListener="#{miembroMB.onClickSalir()}" oncomplete="miembroDialog.hide();" update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar "/>
+                                    <p:commandButton value="Salir" process="@this" icon="ui-icon ui-icon-pencil" actionListener="#{miembroMB.onClickSalir()}" oncomplete="miembroDialog.hide();" update=":form:MiembroTables :form:cmbModificar :form:cmbEliminar :form:ver "/>
                                 </p:panel>
                             </p:dialog>
                             <p:confirmDialog header="MIEMBO/ ELIMINAR" widgetVar="confirmation"
